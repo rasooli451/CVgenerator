@@ -9,6 +9,7 @@ import { useState } from "react";
 
 
 export default function Experience(){
+    const [show, setShow] = useState(true);
     const [companyName, setCompanyName] = useState("");
     const [title, setTitle] = useState("");
     const[startDate, setStartDate] = useState("");
@@ -43,37 +44,37 @@ export default function Experience(){
         setFontColor("black");
     }
 
-    return <form className="Experience section">
+    function toggleShow(){
+        setShow(!show);
+    }
+
+    return !show ? <form className="section"><button className="toggle" type="button" onClick={toggleShow}>Experience</button></form> : <form className="Experience section">
+        <button className="toggle" type="button" onClick={toggleShow}>Experience</button>
         <div className="formPart">
-            <label for="companyName">Company: </label>
-            <input id="companyName" name="companyName" required value={companyName} onChange={(e)=>handleChange(setCompanyName, e)}/>
+            <input id="companyName" name="companyName" placeholder="name of company..."required value={companyName} onChange={(e)=>handleChange(setCompanyName, e)}/>
         </div>
         <div className="formPart">
-            <label for="title">Title: </label>
-            <input id="title" name="title" required value={title} onChange={(e)=>handleChange(setTitle, e)}/>
+            <input id="title" name="title" required value={title} placeholder="title of job..."onChange={(e)=>handleChange(setTitle, e)}/>
         </div>
         <div className="formPart">
-            <label for="startDate">Start Date: </label>
-            <input id="startDate" name="startDate" required value={startDate} onChange={(e)=>handleChange(setStartDate, e)}/>
+            <input id="startDate" name="startDate" required placeholder="the start date..."value={startDate} onChange={(e)=>handleChange(setStartDate, e)}/>
         </div>
         <div className="formPart">
-            <label for="endDate">End Date: </label>
-            <input id="endDate" name="endDate" required value={endDate} onChange={(e)=>handleChange(setEndDate, e)}/>
+            <input id="endDate" name="endDate" required placeholder="the end date..."value={endDate} onChange={(e)=>handleChange(setEndDate, e)}/>
         </div>
         <div className="formPart">
-            <label for="description">Description: </label>
-            <textarea name="description" id="description" onChange={(e)=>handleChange(setDescription, e)} value={description}></textarea>
+            <textarea name="description" id="description" placeholder="description of job..."onChange={(e)=>handleChange(setDescription, e)} value={description}></textarea>
         </div>
         <div className="formPart">
-             <label for="background">Background Color: </label>
-             <select name="background" id="background" value={background} fontColor={fontColor} onChange={handleBackground}>
-                <option value="white" selected fontColor="black">White</option>
-                <option value="black" fontColor="white">Black</option>
-                <option value="blue" fontColor="black">Blue</option>
-                <option value="yellow" fontColor="black">Yellow</option>
-                <option value="purple" fontColor="white">Purple</option>
-                <option value="green" fontColor="black">Green</option>
-                <option value="red" fontColor="yellow">Red</option>
+             <label htmlFor="background">Background Color: </label>
+             <select name="background" id="background" value={background} fontcolor={fontColor} onChange={handleBackground}>
+                <option value="white" selected fontcolor="black">White</option>
+                <option value="black" fontcolor="white">Black</option>
+                <option value="blue" fontcolor="black">Blue</option>
+                <option value="yellow" fontcolor="black">Yellow</option>
+                <option value="purple" fontcolor="white">Purple</option>
+                <option value="green" fontcolor="black">Green</option>
+                <option value="red" fontcolor="yellow">Red</option>
              </select>
              </div>
              <div className="formPart">
