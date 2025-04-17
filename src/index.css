@@ -48,10 +48,14 @@ button {
   transition: border-color 0.25s;
 }
 
-.section{
+.section, .Education{
    border: 2px solid white;
    border-radius: 20px;
-   padding: 0.5em;
+   padding: 0.7em;
+}
+.edu{
+  border: 2px solid #fff;
+  border-radius: 20px;
 }
 button:hover {
   border-color: #646cff;
@@ -64,16 +68,18 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    background-color: #9b7d7d;
+  }
+
+  .btn{
+    background-color: #e6caca;
   }
   a:hover {
     color: #747bff;
   }
-  button {
-    background-color: #f9f9f9;
-  }
+  
 
-  .section{
+  .section, .Education, .edu{
     border: 2px solid black;
   }
 }
