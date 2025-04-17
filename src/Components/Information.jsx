@@ -51,8 +51,8 @@ export default function Information({onsave}){
     function toggleShow(){
         setShow(!show);
     }
-    return !show ? <form className="section"><button className="toggle" type="button" onClick={toggleShow}>Information</button></form> : <form className="information section">
-            <button className="toggle" type="button" onClick={toggleShow}>Information</button>
+    return !show ? <form className="section"><button className="toggle btn" type="button" onClick={toggleShow}>Information</button></form> : <form className="information section">
+            <button className="toggle btn" type="button" onClick={toggleShow}>Information</button>
             <div className="formPart">
              <input type="text" id="firstName" placeholder="your first name..."required name="firstName" onChange={(e)=> handleChange(setFirstName, e)} value={firstName}/>
              </div>
@@ -78,8 +78,8 @@ export default function Information({onsave}){
              </select>
              </div>
              <div className="formPart">
-                  <button type="button" onClick={dealWithData}>Save</button>
-                  <button type="button" onClick={clearEverything}>Reset</button>
+                  <button type="button" onClick={dealWithData} className="btn">Save</button>
+                  <button type="button" onClick={clearEverything} className="btn">Reset</button>
              </div>
           </form>
 }
