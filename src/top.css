@@ -16,7 +16,7 @@
 }
 
 
-.section{
+.section, .Education{
     width: 60%;
     text-align: center;
 }
@@ -57,10 +57,15 @@ textarea{
     padding: 1em;
 }
 
+.btns{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 0.8em;
+}
 
-.hideComp{
-    width: 60%;
-    text-align: center;
+.hideComp,.more{
+    padding: 15px 30px;
 }
 .sect{
     width: 100%;
@@ -85,6 +90,12 @@ textarea{
 .otherInfo{
     display: flex;
     justify-content: space-around;
+}
+
+
+
+.edu{
+    padding: 10px;
 }
 
 
