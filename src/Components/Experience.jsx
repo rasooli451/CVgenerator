@@ -48,8 +48,8 @@ export default function Experience(){
         setShow(!show);
     }
 
-    return !show ? <form className="section"><button className="toggle" type="button" onClick={toggleShow}>Experience</button></form> : <form className="Experience section">
-        <button className="toggle" type="button" onClick={toggleShow}>Experience</button>
+    return !show ? <form className="section"><button className="toggle btn" type="button" onClick={toggleShow}>Experience</button></form> : <form className="Experience section">
+        <button className="toggle btn" type="button" onClick={toggleShow}>Experience</button>
         <div className="formPart">
             <input id="companyName" name="companyName" placeholder="name of company..."required value={companyName} onChange={(e)=>handleChange(setCompanyName, e)}/>
         </div>
@@ -78,8 +78,8 @@ export default function Experience(){
              </select>
              </div>
              <div className="formPart">
-                  <button type="button" onClick={dealWithData}>Save</button>
-                  <button type="button" onClick={clearEverything}>Reset</button>
+                  <button type="button" onClick={dealWithData} className="btn">Save</button>
+                  <button type="button" onClick={clearEverything} className="btn">Reset</button>
              </div>
         
     </form>
