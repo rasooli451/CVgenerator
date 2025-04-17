@@ -47,8 +47,8 @@ export default function Education({onsave}){
         setEndDate("");
         setStyle({background : "white", color : "black"});
     }
-    return !show ? <form className="Education section"><button className="toggle" type="button" onClick={toggleShow}>{school == "" ? "School Name" : school}</button></form> : <form className="Education section">
-        <button className="toggle" type="button" onClick={toggleShow}>{school == "" ? "School Name" : school}</button>
+    return !show ? <form className="edu"><button className="toggle btn" type="button" onClick={toggleShow}>{school == "" ? "School Name" : school}</button></form> : <form className="edu">
+        <button className="toggle btn" type="button" onClick={toggleShow}>{school == "" ? "School Name" : school}</button>
         <div className="formPart">
             <input type="text" required id="school" name="school" placeholder="your school..." value={school} onChange={(e)=> handleChange(setSchool, e)}/>
             </div>
@@ -74,8 +74,8 @@ export default function Education({onsave}){
              </select>
              </div>
              <div className="formPart">
-                  <button type="button" onClick={dealWithData}>Save</button>
-                  <button type="button" onClick={clearEverything}>Reset</button>
+                  <button type="button" className="btn" onClick={dealWithData}>Save</button>
+                  <button type="button" className="btn" onClick={clearEverything}>Reset</button>
              </div>        
     </form>
 }
