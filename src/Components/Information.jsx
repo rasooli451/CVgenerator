@@ -22,6 +22,7 @@ export default function Information({onsave}){
     const [lastName, setLastName] = useState("");
     const[email, setEmail] = useState("");
     const[phoneNumber, setPhone] = useState("");
+    const [location, setLocation] = useState("");
     const[style, setStyle] = useState({background : "white", color : "black"});
 
     
@@ -36,8 +37,8 @@ export default function Information({onsave}){
     }
 
     function dealWithData(){
-        if (firstName.length > 0 && lastName.length > 0 && email.length > 0 && phoneNumber.length > 0){
-            onsave({firstName, lastName, email, phoneNumber, style});
+        if (firstName.length > 0 && lastName.length > 0 && email.length > 0 && phoneNumber.length > 0 && location.length > 0){
+            onsave({firstName, lastName, email, phoneNumber, style, location});
         }
     }
     function clearEverything(){
@@ -45,6 +46,7 @@ export default function Information({onsave}){
         setLastName("");
         setEmail("");
         setPhone("");
+        setLocation("");
         setStyle({background : "white", color : "black"});
     }
     
@@ -64,6 +66,9 @@ export default function Information({onsave}){
              </div>
              <div className="formPart">
              <input type="text" id="phone" required placeholder="your phone number..."name="phone" onChange={(e)=> handleChange(setPhone, e)}value={phoneNumber} />
+             </div>
+             <div className="formPart">
+             <input type="text" id="location" required placeholder="your address..." name="location" onChange={(e)=> handleChange(setLocation, e)}value={location} />
              </div>
              <div className="formPart">
              <label htmlFor="background">Background Color: </label>
