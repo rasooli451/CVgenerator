@@ -22,7 +22,7 @@ export default function Top(){
     const [information, setInformation] = useState(null);
     const [education, setEducation] = useState([]);
     const [experience, setExperience] = useState([]);
-    const [educationForm, setEducationForm] = useState([null]);
+    const [educationForm, setEducationForm] = useState(["36b8f84d-df4e-4d49-b662-bcde71a8764f"]);
     const [educationbg, setEducationBg] = useState({background: "white", color : "black"});
 
     function changeInfo(obj){
@@ -30,6 +30,27 @@ export default function Top(){
     }
 
     function handleChange(obj, callback){
+        let inserted = false;
+        callback((o) => o.map((item) => {
+            if (item.id == obj.id){
+                inserted = true;
+                return obj;
+            }
+            else{
+                return item;
+            }
+        }));
+        if (!inserted){
+            callback(o => [...o, obj]);
+        }
+    }
+
+    function removeEntry(id, callback1, callback2){
+        callback1((o) => o.filter((item) => item.id != id));
+        callback2((o) => o.filter((formId) => formId != id));
+    }
+
+    function addMoreForms(obj, callback){
         callback(o => [...o, obj]);
     }
     
@@ -43,7 +64,7 @@ export default function Top(){
     <Information onsave={(obj)=> changeInfo(obj)}/>
     <div className="Education">
     <div className="btns">
-    <button className="more btn" type="button" onClick={()=> handleChange(null, setEducationForm)}>Add More</button>
+    <button className="more btn" type="button" onClick={()=> addMoreForms(crypto.randomUUID(), setEducationForm)}>Add More</button>
     <div>
         <label htmlFor="background">Background Color: </label>
              <select name="background" id="background"  onChange={handleBackground}>
@@ -58,8 +79,8 @@ export default function Top(){
              </div>
     </div>
     {
-        educationForm.map((item,index)=>(
-            <Education key={index} onsave={(obj)=> handleChange(obj, setEducation)}/>
+        educationForm.map((item)=>(
+            <Education key={item} id = {item} onsave={(obj)=> handleChange(obj, setEducation)} ondelete = {(id) => removeEntry(id, setEducation, setEducationForm)}/>
         ))
     }
     </div>
@@ -72,11 +93,12 @@ export default function Top(){
         <div className="education sect" style={education.length == 0 ? null : educationbg}>
             <h1>Education</h1>
             {education.length == 0 ? <h1>Enter and Save to Show</h1> : 
-                education.map((item, index)=>(
-                    <Educationui obj={item} key={index} style={item.style}/>
+                education.map((item)=>(
+                    <Educationui obj={item} key={item.id}/>
                 ))
             }
         </div>
+        <hr />
         <div className="experience sect"></div>
     </div>
     </>
