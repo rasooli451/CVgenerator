@@ -12,7 +12,7 @@ import { useState } from "react";
 
 
 
-export default function Education({onsave}){
+export default function Education({onsave, id, ondelete}){
     const [show, setShow] = useState(true);
     const [school, setSchool] = useState("");
     const [degree, setDegree] = useState("");
@@ -36,7 +36,7 @@ export default function Education({onsave}){
 
     function dealWithData(){
         if (school.length > 0 && degree.length > 0 && startDate.length > 0 && endDate.length > 0){
-            onsave({school, degree, startDate, endDate, style});
+            onsave({school, degree, startDate, endDate, style, id});
         }
     }
 
@@ -46,6 +46,10 @@ export default function Education({onsave}){
         setStartDate("");
         setEndDate("");
         setStyle({background : "white", color : "black"});
+    }
+
+    function destroySelf(){
+        ondelete(id);
     }
     return !show ? <form className="edu"><button className="toggle btn" type="button" onClick={toggleShow}>{school == "" ? "School Name" : school}</button></form> : <form className="edu">
         <button className="toggle btn" type="button" onClick={toggleShow}>{school == "" ? "School Name" : school}</button>
@@ -76,6 +80,7 @@ export default function Education({onsave}){
              <div className="formPart">
                   <button type="button" className="btn" onClick={dealWithData}>Save</button>
                   <button type="button" className="btn" onClick={clearEverything}>Reset</button>
+                  <button type="button" className="btn" onClick={destroySelf}>Remove</button>
              </div>        
     </form>
 }
