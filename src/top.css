@@ -21,6 +21,13 @@
     text-align: center;
 }
 
+.Education{
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
 input{
     width: 80%;
     padding: 10px;
@@ -75,8 +82,12 @@ textarea{
     text-align: center;
 }
 
-.infosect, .educationsect{
+.infosect{
     padding: 1em;
+}
+
+.educationsect{
+    padding: 0.5em 4em;
 }
 
 .education{
@@ -89,7 +100,7 @@ textarea{
 }
 .otherInfo{
     display: flex;
-    justify-content: space-around;
+    justify-content :space-evenly
 }
 
 
