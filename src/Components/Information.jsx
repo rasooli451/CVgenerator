@@ -17,7 +17,7 @@ import { useState } from "react";
 
 export default function Information({onsave}){
 
-    const[show, setShow] = useState(true);
+    const[show, setShow] = useState(false);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const[email, setEmail] = useState("");
