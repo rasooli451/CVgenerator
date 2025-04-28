@@ -13,12 +13,13 @@ import { useState } from "react";
 
 
 export default function Education({onsave, id, ondelete}){
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(false);
     const [school, setSchool] = useState("");
     const [degree, setDegree] = useState("");
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [style, setStyle] = useState({background : "white", color : "black"});
+    const [gpa, setGpa] = useState("");
 
 
     function toggleShow(){
@@ -35,8 +36,8 @@ export default function Education({onsave, id, ondelete}){
     }
 
     function dealWithData(){
-        if (school.length > 0 && degree.length > 0 && startDate.length > 0 && endDate.length > 0){
-            onsave({school, degree, startDate, endDate, style, id});
+        if (school.length > 0 && degree.length > 0 && startDate.length > 0 && endDate.length > 0 && gpa.length > 0){
+            onsave({school, degree, startDate, endDate, style, id, gpa});
         }
     }
 
@@ -46,12 +47,13 @@ export default function Education({onsave, id, ondelete}){
         setStartDate("");
         setEndDate("");
         setStyle({background : "white", color : "black"});
+        setGpa("");
     }
 
     function destroySelf(){
         ondelete(id);
     }
-    return !show ? <form className="edu"><button className="toggle btn" type="button" onClick={toggleShow}>{school == "" ? "School Name" : school}</button></form> : <form className="edu">
+    return !show ? <form className="entry"><button className="toggle btn" type="button" onClick={toggleShow}>{school == "" ? "School Name" : school}</button></form> : <form className="entry">
         <button className="toggle btn" type="button" onClick={toggleShow}>{school == "" ? "School Name" : school}</button>
         <div className="formPart">
             <input type="text" required id="school" name="school" placeholder="your school..." value={school} onChange={(e)=> handleChange(setSchool, e)}/>
@@ -64,6 +66,9 @@ export default function Education({onsave, id, ondelete}){
             </div>
             <div className="formPart">
             <input type="text" required id="endDate" name="endDate" placeholder="the end date..." value={endDate} onChange={(e)=> handleChange(setEndDate, e)}/>
+            </div>
+            <div className="formPart">
+            <input type="text" required id="gpa" name="gpa" placeholder="your gpa..." value={gpa} onChange={(e)=> handleChange(setGpa, e)}/>
             </div>
             <div className="formPart">
              <label htmlFor="background">Background Color: </label>
