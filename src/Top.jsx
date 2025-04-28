@@ -6,24 +6,30 @@
 
 import Information from "./Components/Information";
 import Education from "./Components/Education";
-
 import Experience from "./Components/Experience";
-
 import Informationui from "./Components/Informationui";
-
 import Educationui from "./Components/Educationui";
-
+import Experienceui from "./Components/Experienceui";
+import Projects from "./Components/Projects";
+import Projectui from "./Components/Projectui";
 import "./top.css";
 import { useState } from "react";
+import {jsPDF} from "../node_modules/jspdf";
+import html2canvas from "../node_modules/html2canvas";
+
 
 
 export default function Top(){
-    //arguments to pass to each form component, a function to pass objects when they are saved in forms
     const [information, setInformation] = useState(null);
     const [education, setEducation] = useState([]);
     const [experience, setExperience] = useState([]);
+    const [project, setProject] = useState([]);
+    const [projectForm, setProjectForm] = useState(["36b8f84d-df4e-4d49-b662-bcde71a8764f"]);
+    const [projectbg, setProjectBg] = useState({background: "white", color : "black"});
     const [educationForm, setEducationForm] = useState(["36b8f84d-df4e-4d49-b662-bcde71a8764f"]);
+    const [experienceForm, setExperienceForm] = useState(["36b8f84d-df4e-4d49-b662-bcde71a8764f"]);
     const [educationbg, setEducationBg] = useState({background: "white", color : "black"});
+    const [experiencebg, setExperienceBg] = useState({background: "white", color : "black"});
 
     function changeInfo(obj){
         setInformation(obj);
@@ -54,20 +60,43 @@ export default function Top(){
         callback(o => [...o, obj]);
     }
     
-    function handleBackground(e){
+    function handleBackground(e, callback){
         let intel = e.target.value.split(",");
-        setEducationBg({background : intel[0], color : intel[1]})
+        callback({background : intel[0], color : intel[1]})
+    }
+
+    function downloadPdf(){
+        const element = document.querySelector(".result");
+            const pdf = new jsPDF('p', 'mm', 'a4');
+    
+            html2canvas(element, {
+              scale: 4, // Increase scale for better resolution
+              useCORS: true,
+              logging: true,
+              letterRendering: true,
+              allowTaint: true
+            }).then(canvas => {
+              const imgWidth = 210; // A4 width in mm
+              const imgHeight = (canvas.height * imgWidth) / canvas.width;
+              
+              // Convert canvas to image with higher quality
+              const imgData = canvas.toDataURL('image/png', 1.0);
+              
+              pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+              pdf.save('cv.pdf');
+            });
     }
     return <>
+    <h1 className="mainTitle">CV generator</h1>
+    <main className="main">
     <div className="forms">
-    
     <Information onsave={(obj)=> changeInfo(obj)}/>
     <div className="Education">
     <div className="btns">
     <button className="more btn" type="button" onClick={()=> addMoreForms(crypto.randomUUID(), setEducationForm)}>Add More</button>
     <div>
         <label htmlFor="background">Background Color: </label>
-             <select name="background" id="background"  onChange={handleBackground}>
+             <select name="background" id="background"  onChange={(e) => handleBackground(e, setEducationBg)}>
                 <option value="white,black" selected >White</option>
                 <option value="black,white" >Black</option>
                 <option value="blue,black" >Blue</option>
@@ -84,23 +113,86 @@ export default function Top(){
         ))
     }
     </div>
-    <Experience onsave={(obj)=> handleChange(obj, setExperience)}/>
+    <div className="Experience">
+    <div className="btns">
+    <button className="more btn" type="button" onClick={()=> addMoreForms(crypto.randomUUID(),setExperienceForm)}>Add More</button>
+    <div>
+        <label htmlFor="background">Background Color: </label>
+             <select name="background" id="background"  onChange={(e) => handleBackground(e, setExperienceBg)}>
+                <option value="white,black" selected >White</option>
+                <option value="black,white" >Black</option>
+                <option value="blue,black" >Blue</option>
+                <option value="yellow,black" >Yellow</option>
+                <option value="purple,white">Purple</option>
+                <option value="green,black">Green</option>
+                <option value="red,yellow">Red</option>
+             </select>
+             </div>
+    </div>
+    {
+        experienceForm.map((item)=>(
+            <Experience key={item} id = {item} onsave={(obj)=> handleChange(obj, setExperience)} ondelete = {(id) => removeEntry(id, setExperience, setExperienceForm)}/>
+        ))
+    }
+    </div>
+    <div className="Project">
+    <div className="btns">
+    <button className="more btn" type="button" onClick={()=> addMoreForms(crypto.randomUUID(),setProjectForm)}>Add More</button>
+    <div>
+        <label htmlFor="background">Background Color: </label>
+             <select name="background" id="background"  onChange={(e) => handleBackground(e, setProjectBg)}>
+                <option value="white,black" selected >White</option>
+                <option value="black,white" >Black</option>
+                <option value="blue,black" >Blue</option>
+                <option value="yellow,black" >Yellow</option>
+                <option value="purple,white">Purple</option>
+                <option value="green,black">Green</option>
+                <option value="red,yellow">Red</option>
+             </select>
+             </div>
+    </div>
+    {
+        projectForm.map((item)=>(
+            <Projects key={item} id = {item} onsave={(obj)=> handleChange(obj, setProject)} ondelete = {(id) => removeEntry(id, setProject, setProjectForm)}/>
+        ))
+    }
+    </div>
+    <button className="btn" type="button" onClick={downloadPdf}>Download PDF</button>
     </div>
     <div className="result">
         <div className="information sect" style={information == null ? null : information.style}>
             <Informationui obj={information}/>
         </div>
         <div className="education sect" style={education.length == 0 ? null : educationbg}>
-            <h1>Education</h1>
-            {education.length == 0 ? <h1>Enter and Save to Show</h1> : 
+            {
+                education.length == 0 ? null : <h2>Education</h2>
+            }
+            {education.length == 0 ? null : 
                 education.map((item)=>(
                     <Educationui obj={item} key={item.id}/>
                 ))
             }
         </div>
-        <hr />
-        <div className="experience sect"></div>
+        <div className="experience sect" style={experience.length == 0 ? null : experiencebg}>
+            {
+                experience.length == 0 ? null : <h2>Experience</h2>
+            }
+            {experience.length == 0 ? null : 
+                 experience.map((item) => (
+                    <Experienceui obj={item} key={item.id}/>
+                 ))}
+        </div>
+        <div className="project sect" style={project.length == 0 ? null : projectbg}>
+            {
+                project.length == 0 ? null : <h2>Projects</h2>
+            }
+            {project.length == 0 ? null : 
+                 project.map((item) => (
+                    <Projectui obj={item} key={item.id}/>
+                 ))}
+        </div>
     </div>
+    </main>
     </>
 
 }
