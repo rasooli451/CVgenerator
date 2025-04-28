@@ -7,7 +7,8 @@
 
 .forms{
     max-width: 800px;
-    width: 50%;
+    width: 30%;
+    flex-shrink: 4;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -16,12 +17,12 @@
 }
 
 
-.section, .Education{
-    width: 60%;
+.section, .Education, .Experience, .Project{
+    width: 100%;
     text-align: center;
 }
 
-.Education{
+.Education, .Experience, .Project{
     padding: 1em;
     display: flex;
     flex-direction: column;
@@ -47,7 +48,7 @@ button + button{
 
 .result{
     max-width: 900px;
-    width: 50%;
+    width: 60%;
 }
 
 
@@ -56,6 +57,7 @@ button + button{
     height: 45px;
     text-align: center;
     margin-bottom: 0.7em;
+    border-radius: 15px;
 }
 
 textarea{
@@ -78,19 +80,18 @@ textarea{
     width: 100%;
 }
 
-.infosect{
-    text-align: center;
-}
+
 
 .infosect{
     padding: 1em;
+    text-align: center;
 }
 
-.educationsect{
+.educationsect, .experiencesect{
     padding: 0.5em 4em;
 }
 
-.education{
+.sect{
     text-align: center;
 }
 
@@ -104,10 +105,47 @@ textarea{
 }
 
 
-
-.edu{
-    padding: 10px;
+.row{
+    display: flex;
+    justify-content: space-between;
 }
+
+.separator{
+    border: none;
+    height: 2px;
+    background-color: gray;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.entry{
+    padding: 20px;
+}
+
+.workinfo, .projectinfo{
+    padding: 0.5em 4em;
+    text-align: left;
+}
+
+.workinfo ul, .projectinfo ul{
+    margin-left: 3em;
+}
+
+.mainTitle{
+    font-size: 3.5em;
+    margin-bottom: 1em;
+}
+
+
+
+.result{
+    align-self: flex-start;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    flex-shrink: 1;
+}
+
 
 
 
