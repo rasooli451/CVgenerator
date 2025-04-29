@@ -13,11 +13,16 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
+
+
 
 a {
   font-weight: 500;
@@ -91,3 +96,5 @@ button:focus-visible {
     border: 2px solid black;
   }
 }
+
+
