@@ -67,7 +67,7 @@ export default function Experience({onsave, id, ondelete}){
             <input id="endDate" name="endDate" required placeholder="the end date..."value={endDate} onChange={(e)=>handleChange(setEndDate, e)}/>
         </div>
         <div className="formPart">
-            <textarea name="description" id="description" placeholder="Responsibilites separated by dot..."onChange={(e)=>handleChange(setDescription, e)} value={description}></textarea>
+            <textarea name="description" id="description" placeholder="Enter responsibilities. Press Enter after each one."onChange={(e)=>handleChange(setDescription, e)} value={description}></textarea>
         </div>
         <div className="formPart">
         <label htmlFor="background">Background Color: </label>
