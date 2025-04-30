@@ -57,7 +57,7 @@ export default function Projects({onsave, id, ondelete}){
             <input id="link" name="link" required placeholder="link for the project..."value={link} onChange={(e)=>handleChange(setLink, e)}/>
         </div>
         <div className="formPart">
-            <textarea name="description" id="description" placeholder="accomplishments separated by dot..." onChange={(e)=>handleChange(setDescription, e)} value={description}></textarea>
+            <textarea name="description" id="description" placeholder="Enter accomplishments. Press Enter after each one." onChange={(e)=>handleChange(setDescription, e)} value={description}></textarea>
         </div>
         <div className="formPart">
         <label htmlFor="background">Background Color: </label>
