@@ -30,6 +30,8 @@ export default function Top(){
     const [experienceForm, setExperienceForm] = useState(["36b8f84d-df4e-4d49-b662-bcde71a8764f"]);
     const [educationbg, setEducationBg] = useState({background: "white", color : "black"});
     const [experiencebg, setExperienceBg] = useState({background: "white", color : "black"});
+    let yPos = 0; //global Yposition variable to help with pdf generation
+    let pdf = new jsPDF('p', 'mm', 'a4'); //global pdf object to help with pdf generation
 
     function changeInfo(obj){
         setInformation(obj);
@@ -65,26 +67,46 @@ export default function Top(){
         callback({background : intel[0], color : intel[1]})
     }
 
-    function downloadPdf(){
-        const element = document.querySelector(".result");
-            const pdf = new jsPDF('p', 'mm', 'a4');
-    
-            html2canvas(element, {
-              scale: 4, // Increase scale for better resolution
-              useCORS: true,
-              logging: true,
-              letterRendering: true,
-              allowTaint: true
-            }).then(canvas => {
-              const imgWidth = 210; // A4 width in mm
-              const imgHeight = (canvas.height * imgWidth) / canvas.width;
-              
-              // Convert canvas to image with higher quality
-              const imgData = canvas.toDataURL('image/png', 1.0);
-              
-              pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-              pdf.save('cv.pdf');
-            });
+ 
+
+    async function downloadPdf(){
+            let result = document.querySelector(".result");
+            await recursiveAdd(result);
+            pdf.save("cv.pdf");
+            pdf = new jsPDF('p', 'mm', 'a4');
+            yPos = 0;
+        }
+
+    async function recursiveAdd(part){
+        if (part.classList.contains("information") || part.classList.contains("educationsect") || part.classList.contains("workinfo") || part.classList.contains("projectinfo") || part.classList.contains("header")){
+            await html2canvas(part, {
+                scale: 4, // Increase scale for better resolution
+                useCORS: true,
+                logging: true,
+                letterRendering: true,
+                allowTaint: true
+              }).then(canvas => {
+                  const imgWidth = 210; // A4 width in mm
+                  const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                  const imgData = canvas.toDataURL('image/png', 1.0);
+                  if (yPos + imgHeight > 297){
+                    pdf.addPage();
+                    yPos = 20;
+                    pdf.addImage(imgData, 'PNG', 0, yPos, imgWidth, imgHeight);
+                  }
+                  else{
+                    pdf.addImage(imgData, 'PNG', 0, yPos, imgWidth, imgHeight);
+                  }
+                  yPos += imgHeight;
+              })
+        }
+        else{
+            const elementList = Array.from(part.children);
+            for (let i = 0; i < elementList.length; i++){
+                await recursiveAdd(elementList[i]);
+            }
+
+        }
     }
     return <>
     <h1 className="mainTitle">CV generator</h1>
@@ -165,7 +187,7 @@ export default function Top(){
         </div>
         <div className="education sect" style={education.length == 0 ? null : educationbg}>
             {
-                education.length == 0 ? null : <h2>Education</h2>
+                education.length == 0 ? null : <div className="header" style={education.length == 0 ? null : educationbg}><h2>Education</h2></div>
             }
             {education.length == 0 ? null : 
                 education.map((item)=>(
@@ -175,7 +197,7 @@ export default function Top(){
         </div>
         <div className="experience sect" style={experience.length == 0 ? null : experiencebg}>
             {
-                experience.length == 0 ? null : <h2>Experience</h2>
+                experience.length == 0 ? null : <div className="header" style={experience.length == 0 ? null : experiencebg}><h2>Experience</h2></div>
             }
             {experience.length == 0 ? null : 
                  experience.map((item) => (
@@ -184,7 +206,7 @@ export default function Top(){
         </div>
         <div className="project sect" style={project.length == 0 ? null : projectbg}>
             {
-                project.length == 0 ? null : <h2>Projects</h2>
+                project.length == 0 ? null : <div className="header" style={project.length == 0 ? null : projectbg}><h2>Projects</h2></div>
             }
             {project.length == 0 ? null : 
                  project.map((item) => (
