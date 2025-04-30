@@ -4,14 +4,14 @@
 
 
 
-import Information from "./Components/Information";
-import Education from "./Components/Education";
-import Experience from "./Components/Experience";
-import Informationui from "./Components/Informationui";
-import Educationui from "./Components/Educationui";
-import Experienceui from "./Components/Experienceui";
-import Projects from "./Components/Projects";
-import Projectui from "./Components/Projectui";
+import Information from "./Components/formComponents/Information";
+import Education from "./Components/formComponents/Education";
+import Experience from "./Components/formComponents/Experience";
+import Informationui from "./Components/cvComponents/Informationui";
+import Educationui from "./Components/cvComponents/Educationui";
+import Experienceui from "./Components/cvComponents/Experienceui";
+import Projects from "./Components/formComponents/Projects";
+import Projectui from "./Components/cvComponents/Projectui";
 import "./top.css";
 import { useState } from "react";
 import {jsPDF} from "../node_modules/jspdf";
